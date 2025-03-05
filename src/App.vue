@@ -1,6 +1,11 @@
 <template>
   <div class="wrapper">
-    <div class="container">
+    <div v-if="loading" class="preloader">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>  
+    </div>
+    <div v-else class="container">
       <img :src=picture.large alt="photo" class="avatar">
       <div class="about-me">
         <p class="name">{{ name.first }}</p>
@@ -33,11 +38,13 @@
         name: {},
         gender: '',
         dob: {},
-        location: {}
+        location: {},
+        loading: false
       }
     },
     methods: {
       async fetchUser() {
+        this.loading = true;
         try {
           const res = await fetch(this.url);
           const data = await res.json();
@@ -50,11 +57,13 @@
           this.location = user.location;
         } catch (error) {
           console.error('Ошибка загрузки данных:', error);
+        } finally {
+          this.loading = false;
         }
       }
     },
     mounted() {
-      this.fetchUser(); // Загружаем пользователя при старте
+      this.fetchUser();
     }
   }
 </script>
@@ -131,4 +140,43 @@
 .like:hover .like-img, .dislike:hover .dislike-img {
   transform: scale(1.1);
 }
+
+.bar {
+    width: 8px;
+    height: 30px;
+    background: #9771EC;
+    display: inline-block;
+    margin-right: 0px;
+    opacity: 0.1;
+    -webkit-transform: scale(1);
+    -webkit-animation: pulse .7s ease-in-out infinite alternate;
+    transform-origin: center;
+  }
+  
+  .bar:nth-child(1) {
+    animation-delay: 0.05s;
+  }
+  
+  .bar:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  
+  .bar:nth-child(3) {
+    animation-delay: 0.35s;
+    margin-right: 0;
+  }
+  
+  @-webkit-keyframes pulse {
+    to {
+      -webkit-transform: scale(1.2);
+      opacity: 1;
+    }
+  }
+
+  @keyframes pulse {
+    to {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+  }
 </style>
