@@ -9,7 +9,7 @@
         <button type="submit">Зарегистрироваться</button>
       </form>
       
-      <p>Уже есть аккаунт? <router-link to="/login">Войти</router-link></p>
+      <p>Уже есть аккаунт? <router-link to="/">Войти</router-link></p>
     </div>
   </template>
   

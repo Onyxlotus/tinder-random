@@ -4,7 +4,7 @@
       <form @submit.prevent="login">
         <input v-model="text" type="text" placeholder="Логин" required />
         <input v-model="password" type="password" placeholder="Пароль" required />
-        <button type="submit">Войти</button>
+        <button type="submit"><router-link to="/profile">Войти</router-link></button>
       </form>
       
       <div class="social-login">
@@ -20,14 +20,18 @@
   export default {
     data() {
       return {
-        email: '',
+        login: '',
         password: ''
       };
     },
     methods: {
       login() {
-        console.log('Попытка входа:', this.email, this.password);
-        // Здесь будет запрос к серверу
+        if (this.login === 'qqq' && this.password === 'qqq') {
+        // Успешный вход, перенаправляем на страницу профиля
+        this.$router.push('/profile');
+        } else {
+        alert('Неверные учетные данные');
+      }
       },
       loginWithVK() {
         console.log('Вход через ВК');
@@ -55,6 +59,12 @@
     width: 100%;
     margin: 10px 0;
     padding: 10px;
+  }
+
+  button a{
+    text-decoration: none;
+    outline: none;
+    color: white;
   }
   button {
     background: #007bff;

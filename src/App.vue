@@ -27,5 +27,10 @@ export default {
 </script>
 
 <style scoped>
-
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 </style>
